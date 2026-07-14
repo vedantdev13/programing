@@ -1,3 +1,4 @@
+/*
 class Solution {
     public boolean strongPasswordCheckerII(String password) {
         boolean hasLower = false;
@@ -43,8 +44,8 @@ class Solution {
         return hasValidLength && hasNoAdjacentSame && hasLower && hasUpper && hasDigit && hasSpecial;
     }
 }
+*/
 
-/*
 class Solution {
     public boolean strongPasswordCheckerII(String password) {
 
@@ -54,10 +55,14 @@ class Solution {
         boolean upper = false ;
         boolean digit = false ;
         boolean special = false ;
+        boolean ad = true;
 
         for(int i =0 ; i < password.length() ; i++){
             char ch = password.charAt(i);
-
+            
+            if( i > 0 && ch == password.charAt(i-1)){
+                ad = false;
+            }
             if( ch >= 'a' && ch <= 'z'){
                 lower = true;
             }
@@ -72,12 +77,7 @@ class Solution {
             }
 
         }
-
-        if(lower == true && upper == true && digit == true && special == true ){
-            return true;
-        }
-        return false ;
+        return lower && upper && digit && special && ad;
     }
 }
 
-*/
