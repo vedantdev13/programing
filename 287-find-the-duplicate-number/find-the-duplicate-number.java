@@ -1,11 +1,11 @@
 class Solution {
     public int findDuplicate(int[] nums) {
-        HashSet<Integer> ved = new HashSet<>();
+        
+        HashMap<Integer, Integer> ved = new HashMap<>();
         for(int i =0 ; i < nums.length ; i++){
-            if(!ved.contains(nums[i])){
-                ved.add(nums[i]);
-            }
-            else{
+            ved.put(nums[i] , ved.getOrDefault(nums[i] , 0) +1 );
+
+            if((ved.get(nums[i]) > 1 )){   // .get() me jo value h vo access hota h 
                 return nums[i];
             }
         }
@@ -16,21 +16,24 @@ class Solution {
 
 
 
-/*
-
+/*        
 
 
         // to remove TLE we use hashset 
-        HashSet<Integer> set = new HashSet<>();
-        for(int num :nums){
-            if(!set.contains(num)){
-                set.add(num);
+
+        HashSet<Integer> ved = new HashSet<>();
+        for(int i =0 ; i < nums.length ; i++){
+            if(!ved.contains(nums[i])){
+                ved.add(nums[i]);
             }
             else{
-                return num;
+                return nums[i];
             }
         }
         return -1;
+
+
+
 
 
 
