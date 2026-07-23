@@ -1,7 +1,13 @@
 class Solution {
     public int findMin(int[] nums) {
-        Arrays.sort(nums);
-        return nums[0];
-                
+
+        int max = 2147483647 ;
+
+        for(int i =0 ; i < nums.length ; i++){
+            if(nums[i] < max ){
+                max = nums[i];
+            }
+        }
+        return max;
     }
 }
