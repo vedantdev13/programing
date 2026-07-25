@@ -1,24 +1,26 @@
 class Solution {
     public int numSubarrayProductLessThanK(int[] nums, int k) {
-        // Handle edge cases where k is 0 or 1 (no subarrays possible)
+
         if (k <= 1) return 0;
 
         int totalCount = 0;
-        int product = 1;
+        int product = 1; // Product ko loop ke baahar initialize kiya taaki baar-baar reset na ho
+        int left = 0;    // 'left' pointer ko variable banaya, loop nahi
 
-        // Use two pointers to maintain a sliding window
-        for (int left = 0, right = 0; right < nums.length; right++) {
-            // Expand the window by including the element at the right pointer
-            product *= nums[right];
+        // CHANGE 1: Ab sirf ek loop hai jo 'right' pointer ko control karta hai
+        for (int right = 0; right < nums.length; right++) {
 
-            // Shrink the window from the left while the product is greater than or equal to k
-            while (product >= k) {
-                // Remove the element at the left pointer from the product
-                product /= nums[left++];
+            product = product * nums[right]; // Window expand ki: right element ko product mein add kiya
+
+            // CHANGE 2: Jab tak product >= k hai, tab tak left se window ko chhota karo
+            // Yahan humne aapka logic rakha hai, bas 'left++' safely loop ke andar chalega
+            while (product >= k && left <= right) {
+                product /= nums[left]; // Left element ko product se hataya
+                left++;                // Left pointer ko aage badhaya
             }
 
-            // Update the total count by adding the number of valid subarrays with the current window size
-            totalCount += right - left + 1;  // right - left + 1 represents the current window size
+            // CHANGE 3: right - left + 1 current window ke saare valid subarrays ko count karta hai
+            totalCount += right - left + 1; 
         }
 
         return totalCount;
